@@ -55,22 +55,40 @@ var Action = /*#__PURE__*/function (_React$Component3) {
   }
   _inherits(Action, _React$Component3);
   return _createClass(Action, [{
+    key: "handlePick",
+    value: function handlePick() {
+      alert('handlePick');
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", null, "What should I do?"));
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+        onClick: this.handlePick
+      }, "What should I do?"));
     }
   }]);
 }(React.Component);
 var Options = /*#__PURE__*/function (_React$Component4) {
-  function Options() {
+  function Options(props) {
+    var _this;
     _classCallCheck(this, Options);
-    return _callSuper(this, Options, arguments);
+    _this = _callSuper(this, Options, [props]);
+    _this.handleRemoveAll = _this.handleRemoveAll.bind(_this);
+    return _this;
   }
   _inherits(Options, _React$Component4);
   return _createClass(Options, [{
+    key: "handleRemoveAll",
+    value: function handleRemoveAll() {
+      console.log(this.props.options);
+      alert('Remove handlepick');
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, this.props.options.map(function (option) {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+        onClick: this.handleRemoveAll
+      }, "Remove all"), this.props.options.map(function (option) {
         return /*#__PURE__*/React.createElement(Option, {
           key: option,
           optionText: option
@@ -88,7 +106,7 @@ var Option = /*#__PURE__*/function (_React$Component5) {
   return _createClass(Option, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, "Option: ", this.props.optionText);
+      return /*#__PURE__*/React.createElement("div", null, this.props.optionText);
     }
   }]);
 }(React.Component);
@@ -99,9 +117,23 @@ var AddOption = /*#__PURE__*/function (_React$Component6) {
   }
   _inherits(AddOption, _React$Component6);
   return _createClass(AddOption, [{
+    key: "handleAddOption",
+    value: function handleAddOption(e) {
+      e.preventDefault();
+      var option = e.target.elements.option.value.trim();
+      if (option) {
+        alert(option);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, "AddOption component here");
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("form", {
+        onSubmit: this.handleAddOption
+      }, /*#__PURE__*/React.createElement("input", {
+        type: "text",
+        name: "option"
+      }), /*#__PURE__*/React.createElement("button", null, "Add Option")));
     }
   }]);
 }(React.Component);
