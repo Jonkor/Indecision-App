@@ -1,15 +1,43 @@
-//Using updated functional components
-function IndecisionApp () {
-    const title = 'Indecision functional';
-    const subtitle = 'Put your life in the hands of a computer';
-    const options = ['Thing one', 'Thing two', 'Thing four'];
+function IndecisionApp() {
+    const [options, setOptions] = React.useState([]);
 
+    const handleDeleteOptions = () => {
+        setOptions([]);
+    };
+
+    const handlePick = () => {
+        const randomNum = Math.floor(Math.random() * options.length);
+        const option = options[randomNum];
+        alert(option);
+    };
+
+    const handleAddOption = (option) => {
+        if (!option) { //if there is a empty string
+            return 'Enter valid value to add item';
+        } else if (options.indexOf(option) > -1) { // if option exist
+            return 'This option already exists';
+        }
+
+        setOptions(prevOptions => [...prevOptions, option]);
+    };
+
+    const title = 'Indecision';
+    const subtitle = 'Put your life in the hands of a computer';
+    
     return (
         <div>
             <Header title={title} subtitle={subtitle}/>
-            <Action />
-            <Options options={options}/>
-            <AddOption />
+            <Action 
+                hasOptions={options.length > 0}
+                handlePick={handlePick}
+            />
+            <Options 
+                options={options} 
+                handleDeleteOptions={handleDeleteOptions}
+            />
+            <AddOption 
+                handleAddOption={handleAddOption}
+            />
         </div>
     );
 }
@@ -19,33 +47,31 @@ function Header({ title, subtitle }) {
     return (
         <div>
             <h1>{title}</h1>
-            <h2>{subtitle}</h2>
+            <h2>{subtitle}</h2>   
         </div>
     );
 }
 
-function Action() {
-    const handlepick= () => {
-        alert('handlePick');
-    };
-
+function Action({ handlePick, hasOptions }) {
     return (
         <div>
-            <button onClick={handlepick}>What should I do?</button> 
-        </div>
+            <button 
+                onClick={handlePick}
+                disabled={!hasOptions}   
+            >
+                What should I do?
+            </button>
+        </div> 
     );
 }
 
-function Options({ options }){
-    const handleRemoveAll = () => {
-        alert('handle remove all')
-    };
+function Options({ options, handleDeleteOptions }) {
     return (
         <div>
-            <button onClick={handleRemoveAll}>Remove all</button>
+            <button onClick={handleDeleteOptions}>Remove all</button>
             {
                 options.map((option) => <Option key={option} optionText={option}/>)
-            }
+            }         
         </div>
     );
 }
@@ -53,30 +79,38 @@ function Options({ options }){
 function Option({ optionText }) {
     return (
         <div>
-            Option: {optionText}
+            {optionText}
         </div>
     );
 }
 
-function AddOption() {
-    const handleAddOption = (e) => {
+function AddOption({ handleAddOption }) {
+    const [error, setError] = React.useState(undefined);
+    
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         const option = e.target.elements.option.value.trim();
+        const errorMessage = handleAddOption(option);
 
-        if (option) {
-            alert(option);
+        setError(errorMessage);
+        
+        // Clear the input if no error
+        if (!errorMessage) {
+            e.target.elements.option.value = '';
         }
     };
+
     return (
         <div>
-            <form onSubmit={handleAddOption}>
+            {error && <p>{error}</p>}
+            <form onSubmit={handleSubmit}>
                 <input type="text" name="option" />
-                <button>Add option</button>
+                <button>Add Option</button>
             </form>
         </div>
     );
 }
 
 const root = ReactDOM.createRoot(document.getElementById('app'));
-root.render(<IndecisionApp />)
+root.render(<IndecisionApp />);
