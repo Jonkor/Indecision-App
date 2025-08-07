@@ -55,57 +55,47 @@ class IndecisionApp extends React.Component {
    }
 }
 
-class Header extends React.Component {
- render() {
-    console.log(this.props);
-    return (
-     <div>
-        <h1>{this.props.title}</h1>
-        <h2>{this.props.subtitle}</h2>   
-     </div>
-    );
- }
-}
+const Header = (props) => {
+   return (
+      <div>
+         <h1>{props.title}</h1>
+         <h2>{props.subtitle}</h2>
+      </div>
+   );
+};
 
-class Action extends React.Component {
- render() {
-    return (
-       <div>
-         <button 
-            onClick={this.props.handlePick}
-            disabled={!this.props.hasOptions}   
+const Action = (props) => {
+   return (
+      <div>
+         <button
+            onClick={props.handlePick}
+            disabled={!props.hasOptions}
          >
             What should I do?
          </button>
+      </div>
+   );
+};
 
-       </div> 
-    );
-  }  
-}
 
-class Options extends React.Component {
-
- render() {
+const Options = (props) => {
     return (
         <div>
-            <button onClick={this.props.handleDeleteOptions}>Remove all</button>
+            <button onClick={props.handleDeleteOptions}>Remove all</button>
             {
-                this.props.options.map((option) => <Option key={option} optionText={option}/>)
+                props.options.map((option) => <Option key={option} optionText={option}/>)
             }         
         </div>
     );
- }
-}
+};
 
-class Option extends React.Component {
- render() {
+const Option = (props) => {
     return (
         <div>
-            {this.props.optionText}
+            {props.optionText}
         </div>
-    );
- }
-}
+    );   
+};
 
 class AddOption extends React.Component {
  constructor(props) {
@@ -138,6 +128,14 @@ class AddOption extends React.Component {
  }
 }
 
+// const User = (props) => {
+//    return (
+//       <div>
+//          <h1>Name: {props.name}</h1>
+//          <p>Age:{props.age}</p>
+//       </div>
+//    );
+// };
 
 const root = ReactDOM.createRoot(document.getElementById('app'));
-root.render(<IndecisionApp />)
+root.render(<IndecisionApp name="John" age="23"/>)
