@@ -9,8 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "live-server public/",
-    "build": "webpack --watch",
-    "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=@babel/preset-env,@babel/preset-react --watch"
+    "build": "webpack --mode production",
+    "dev-server": "webpack serve --mode development"
   },
   "devDependencies": {
     "@babel/cli": "^7.28.0",
@@ -25,6 +25,7 @@
     "live-server": "^1.2.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "validator": "^13.15.15"
+    "validator": "^13.15.15",
+    "webpack-dev-server": "^5.2.2"
   }
 }
