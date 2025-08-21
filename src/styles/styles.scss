@@ -1,5 +1,3 @@
-$brand-color: blue;
+@use './base/base';
+@use './components/header';
 
-* {
-    color: $brand-color;
-}
