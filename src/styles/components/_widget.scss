@@ -1,0 +1,31 @@
+@use '../base/settings' as *; 
+@use 'sass:color';
+
+// Widget
+.widget {
+    background: $light-blue;
+    margin-bottom: $xl-size;
+}
+
+
+
+// Widget Header
+.widget-header {
+  background: $blue;
+  color: $off-white;
+  display: flex;
+  justify-content: space-between;
+  padding: $m-size  
+}
+
+.widget-header__title {
+  margin: 0;
+}
+
+.widget__message {
+  border-bottom: 1px color.adjust($light-blue, $lightness: 10%);
+  color: $off-white;
+  margin: 0;
+  padding: $l-size;
+  text-align: center;  
+}
